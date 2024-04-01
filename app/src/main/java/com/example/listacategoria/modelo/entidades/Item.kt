@@ -1,4 +1,6 @@
 package com.example.listacategoria.modelo.entidades
 
-class Item (var accion: String){
+import java.io.Serializable
+
+class Item (var accion: String, var activo: Boolean): Serializable {
 }

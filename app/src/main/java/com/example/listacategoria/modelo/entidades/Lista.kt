@@ -1,10 +1,11 @@
 package com.example.listacategoria.modelo.entidades
 
-class Lista (var nombre: String,
-             var tipo: String,
-             var nTareas: Int) {
+import java.io.Serializable
+
+class Lista ( var nombre: String
+             ): Serializable {
 
     //una lista tiene un conjunto de items
     var items: MutableList<Item> = mutableListOf()
-
+    var nTareas: Int = items.size
 }

@@ -26,10 +26,9 @@ class MainActivity : AppCompatActivity() {
         daoCategoria = DaoCategoriasFichero()
         daoLista = DaoListasFichero()
         daoCategoria.createConexion(conexion)
+        //daoLista.createConexion(conexion)
 
-        //borro datos del fichero
-        var bdFichero = BDFichero(this)
-        bdFichero.borrarArchivos()
+
 
         //añado categorias
         var hogar = Categoria("Hogar")
@@ -70,10 +69,27 @@ class MainActivity : AppCompatActivity() {
         //incluyo lista en categoria de Viajes
         var playa = Lista( "Playas")
         daoLista.addLista( viajes, playa)
-        val listViaje: List<Lista> = daoLista.getListas(hogar)
+        val listViaje: List<Lista> = daoLista.getListas(viajes)
         listViaje.forEach {
             Log.d("Viajes", it.nombre)
         }
 
+        // Obtengo y muestro todas las categorías y sus listas e ítems
+        val listaCompleta: List<Categoria> = daoCategoria.getCategorias()
+        listaCompleta.forEach { categoria ->
+            Log.d("Info", categoria.nombre)
+            val listas: List<Lista> = daoLista.getListas(categoria)
+            listas.forEach { lista ->
+                Log.d(categoria.nombre, lista.nombre)
+                val items: List<Item> = daoLista.getItems(lista)
+                items.forEach { item ->
+                    Log.d(lista.nombre, item.accion)
+                }
+            }
+        }
+
+        //borro datos del fichero
+        //var bdFichero = BDFichero(this)
+       // bdFichero.borrarArchivos()
     }
 }

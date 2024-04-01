@@ -1,13 +1,19 @@
 package com.example.listacategoria.modelo.daos.listas
 
+import android.util.Log
 import com.example.listacategoria.modelo.conexiones.BDFichero
 import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.entidades.Item
 import com.example.listacategoria.modelo.entidades.Lista
+import com.example.listacategoria.modelo.interfaces.InterfaceDao
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoListas
 
-class DaoListasFichero: InterfaceDaoListas {
-    lateinit var conexion: BDFichero
+class DaoListasFichero: InterfaceDaoListas, InterfaceDao {
+    private lateinit var conexion: BDFichero
+
+    override fun createConexion(con: BDFichero) {
+        conexion = con as BDFichero
+    }
 
     override fun addLista(ca: Categoria, li: Lista) {
         ca.listas.add(li)
@@ -32,6 +38,7 @@ class DaoListasFichero: InterfaceDaoListas {
 
     override fun addItem(li: Lista, ite: Item) {
         li.items.add(ite)
+        li.nTareas++
     }
 
     override fun getItems(li: Lista): MutableList<Item> {
@@ -45,12 +52,7 @@ class DaoListasFichero: InterfaceDaoListas {
 
     override fun deleteItem(li: Lista, ite: Item) {
         li.items.remove(ite)
+        li.nTareas--
     }
-
-
-    override fun createConexion(con: BDFichero) {
-        conexion = con as BDFichero
-    }
-
 
 }

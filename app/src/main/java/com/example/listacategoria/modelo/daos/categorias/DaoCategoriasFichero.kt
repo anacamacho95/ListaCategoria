@@ -3,10 +3,11 @@ package com.example.listacategoria.modelo.daos.categorias
 import android.util.Log
 import com.example.listacategoria.modelo.conexiones.BDFichero
 import com.example.listacategoria.modelo.entidades.Categoria
+import com.example.listacategoria.modelo.interfaces.InterfaceDao
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoCategorias
 
-class DaoCategoriasFichero: InterfaceDaoCategorias {
-    lateinit var conexion: BDFichero
+class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
+    private lateinit var conexion: BDFichero
 
     override fun createConexion(con: BDFichero) {
         conexion = con as BDFichero

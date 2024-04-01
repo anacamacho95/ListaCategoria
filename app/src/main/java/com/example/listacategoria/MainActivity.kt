@@ -2,6 +2,7 @@ package com.example.listacategoria
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.listacategoria.modelo.conexiones.BDFichero
 import com.example.listacategoria.modelo.daos.categorias.DaoCategoriasFichero
 import com.example.listacategoria.modelo.entidades.Categoria
@@ -15,12 +16,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var daoCategoria: InterfaceDaoCategorias =DaoCategoriasFichero()
+        daoCategoria = DaoCategoriasFichero(this)
         //añado categoria
         var hogar = Categoria("Hogar")
         daoCategoria.addCategoria(hogar)
         //muestro categorias
-        daoCategoria.getCategorias()
+        Log.d("Categorias", daoCategoria.getCategorias().toString())
 
 
 

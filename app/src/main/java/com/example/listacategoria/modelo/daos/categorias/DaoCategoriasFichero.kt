@@ -1,12 +1,17 @@
 package com.example.listacategoria.modelo.daos.categorias
 
+import android.content.Context
 import android.util.Log
 import com.example.listacategoria.modelo.conexiones.BDFichero
 import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoCategorias
 
-class DaoCategoriasFichero: InterfaceDaoCategorias {
-    lateinit var conexion: BDFichero
+class DaoCategoriasFichero(private val context: Context): InterfaceDaoCategorias {
+    var conexion: BDFichero = BDFichero(context)
+
+    override fun createConexion(con: BDFichero) {
+        conexion = con as BDFichero
+    }
 
     override fun addCategoria(ca: Categoria) {
         val lista=conexion.leer()
@@ -43,7 +48,5 @@ class DaoCategoriasFichero: InterfaceDaoCategorias {
             Log.d("error","La categoría ${ca.nombre} no existe")
         }    }
 
-    override fun createConexion(con: BDFichero) {
-        conexion = con as BDFichero
-    }
+
 }

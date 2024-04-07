@@ -7,7 +7,7 @@ import com.example.listacategoria.modelo.interfaces.InterfaceDao
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoCategorias
 
 class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
-    private lateinit var conexion: BDFichero
+    lateinit var conexion: BDFichero
 
     override fun createConexion(con: BDFichero) {
         conexion = con as BDFichero
@@ -23,31 +23,27 @@ class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
         return conexion.leer()
     }
 
-    override fun getCategorias(nombre: String): MutableList<Categoria> {
-        val lista=conexion.leer()
-        return lista.filter { it.nombre==nombre } as MutableList<Categoria>
-    }
-
-    override fun updateCategoria(ca: Categoria) {
+    override fun updateCategoria(caAnt: Categoria, caNue: Categoria) {
         val lista = conexion.leer()
-        val index = lista.indexOfFirst { it.nombre == ca.nombre }
-        if (index != -1) {
-            lista[index] = ca
-            conexion.escribir(lista)
-        } else {
-            Log.d("error","La categoría ${ca.nombre} no existe")
+        for (categoria in lista) {
+            if (categoria.nombre == caAnt.nombre) {
+                conexion.escribir(lista)
+            } else {
+                Log.d("error","La categoría ${caAnt.nombre} no existe")
+            }
         }
     }
 
     override fun deleteCategoria(ca: Categoria) {
         val lista = conexion.leer()
-        val index = lista.indexOfFirst { it.nombre == ca.nombre }
-        if (index != -1) {
-            lista.removeAt(index)
+        val indice = lista.indexOf(ca)
+        if (indice != -1) {
+            lista.removeAt(indice)
             conexion.escribir(lista)
         } else {
             Log.d("error","La categoría ${ca.nombre} no existe")
-        }    }
+        }
+    }
 
 
 }

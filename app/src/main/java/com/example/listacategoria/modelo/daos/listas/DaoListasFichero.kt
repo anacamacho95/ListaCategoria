@@ -9,7 +9,7 @@ import com.example.listacategoria.modelo.interfaces.InterfaceDao
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoListas
 
 class DaoListasFichero: InterfaceDaoListas, InterfaceDao {
-    private lateinit var conexion: BDFichero
+    lateinit var conexion: BDFichero
 
     override fun createConexion(con: BDFichero) {
         conexion = con as BDFichero

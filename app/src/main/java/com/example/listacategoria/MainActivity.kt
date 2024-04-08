@@ -42,24 +42,15 @@ class MainActivity : AppCompatActivity() {
             Log.d("Categorias", it.nombre)
         }
 
-        //modifico categorias
-        var casa= Categoria("Casa")
-        daoCategoria.updateCategoria(hogar,casa)
-        val listCat2: List<Categoria> = daoCategoria.getCategorias()
-        //muestro categorias actualizado
-        listCat2.forEach {
-            Log.d("CatActualizado", it.nombre)
-        }
-
         //añado lista a categoria Hogar
         var cocina = Lista( "Cocina")
-        daoLista.addLista( casa, cocina)
+        daoLista.addLista( hogar, cocina)
         var aseo = Lista( "Aseo")
-        daoLista.addLista( casa, aseo)
-        //veo lista de Casa
-        val listCasa: List<Lista> = daoLista.getListas(casa)
-        listCasa.forEach {
-            Log.d("Casa", it.nombre)
+        daoLista.addLista( hogar, aseo)
+        //veo lista de Hogar
+        val listHogar: List<Lista> = daoLista.getListas(hogar)
+        listHogar.forEach {
+            Log.d("ListaHogar", it.nombre)
         }
 
         //añado items a cocina
@@ -68,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         //veo items cocina
         val listCocina: List<Item> = daoLista.getItems(cocina)
         listCocina.forEach{
-            Log.d("Cocina", it.accion)
+            Log.d("ListaCocina", it.accion)
         }
 
         //incluyo listas en categoria de Viajes
@@ -81,17 +72,39 @@ class MainActivity : AppCompatActivity() {
             Log.d("ListaViajes", it.nombre)
         }
 
+        //muesta la lista de hogar
+        val listasHogar: List<Lista> = daoLista.getListas(hogar)
+        for (lista in listasHogar) {
+            Log.d("Listas de Hogar", "Lista: ${lista.nombre}")
+            val items: List<Item> = daoLista.getItems(lista)
+            for (item in items) {
+                Log.d("Listas de Hogar", "Item (${lista.nombre}): ${item.accion}")
+            }
+        }
+
         // Obtengo y muestro todas las categorías y sus listas e ítems
-        daoCategoria.getCategorias().forEach { categoria ->
-            Log.d("Info", categoria.nombre)
-            daoLista.getListas(categoria).forEach { lista ->
-                Log.d(categoria.nombre, lista.nombre)
-                daoLista.getItems(lista).forEach { item ->
-                    Log.d(lista.nombre, item.accion)
+        val muestraCategorias: List<Categoria> = daoCategoria.getCategorias()
+        for (categoria in muestraCategorias) {
+            Log.d("muestraCategorias", "Categoría: ${categoria.nombre}")
+
+            val listas: List<Lista> = daoLista.getListas(categoria)
+            for (lista in listas) {
+                Log.d(categoria.nombre, "Lista: ${lista.nombre}")
+
+                val items: List<Item> = daoLista.getItems(lista)
+                for (item in items) {
+                    Log.d(lista.nombre, "*: ${item.accion}")
                 }
             }
         }
 
-
+        //modifico categorias
+        var casa= Categoria("Casa")
+        daoCategoria.updateCategoria(hogar,casa)
+        val listCat2: List<Categoria> = daoCategoria.getCategorias()
+        //muestro categorias actualizado
+        listCat2.forEach {
+            Log.d("CatActualizado", it.nombre)
+        }
     }
 }

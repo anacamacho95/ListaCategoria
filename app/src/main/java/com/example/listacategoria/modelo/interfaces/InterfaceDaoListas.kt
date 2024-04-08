@@ -2,28 +2,28 @@ package com.example.listacategoria.modelo.interfaces
 
 import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.entidades.Item
-import com.example.listacategoria.modelo.entidades.Lista
+import com.example.listacategoria.modelo.entidades.Tarea
 
 interface InterfaceDaoListas: InterfaceDao {
     //CRUD LISTAS
     //crear
-    fun addLista (ca: Categoria, li: Lista)
+    fun addTarea (ca: Categoria, ta: Tarea)
     //leer Todas las listas
-    fun getListas(ca: Categoria): MutableList<Lista>
+    fun getTareas(ca: Categoria): MutableList<Tarea>
     //leer una lista en concreto
-    fun getListas(ca: Categoria, nombre: String): MutableList<Lista>
+    fun getTareas(ca: Categoria, ta: Tarea): MutableList<Tarea>
     //actualizar
-    fun updateNombreLista(ca: Categoria, li: Lista, nomAnt: String, nomNue: String)
+    fun updateNombreTarea(ca: Categoria, ta: Tarea, nomAnt: String, nomNue: String)
     //borrar
-    fun deleteLista (ca: Categoria, li: Lista)
+    fun deleteTarea (ca: Categoria, ta: Tarea)
 
     //CRUD ITEMS
     //crear
-    fun addItem (li: Lista, ite: Item)
+    fun addItem (ta: Tarea, ite: Item)
     //leer Todos los items
-    fun getItems(li: Lista): MutableList<Item>
+    fun getItems(ta: Tarea): MutableList<Item>
     //actualizar item
-    fun updateItem(li: Lista,ite: Item,  ant: String, nue: String)
+    fun updateItem(ta: Tarea, ite: Item, ant: String, nue: String)
     //borrar
-    fun deleteItem (li: Lista, ite: Item)
+    fun deleteItem (ta: Tarea, ite: Item)
 }

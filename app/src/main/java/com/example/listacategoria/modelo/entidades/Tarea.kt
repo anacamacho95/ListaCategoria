@@ -2,7 +2,7 @@ package com.example.listacategoria.modelo.entidades
 
 import java.io.Serializable
 
-class Lista ( var nombre: String ): Serializable {
+class Tarea (var nombre: String ): Serializable {
 
     //una lista tiene un conjunto de items
     var items: MutableList<Item> = mutableListOf()

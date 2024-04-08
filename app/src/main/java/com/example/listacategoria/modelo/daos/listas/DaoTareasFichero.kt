@@ -29,16 +29,23 @@ class DaoTareasFichero: InterfaceDaoListas, InterfaceDao {
     override fun getTareas(ca: Categoria): MutableList<Tarea> {
         val lista = conexion.leer()
         val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
-        return categoriaEncontrada?.tareas ?: mutableListOf()    }
-
-    override fun getTareas(ca: Categoria, ta: Tarea): MutableList<Tarea> {
-        TODO("Not yet implemented")
+        return categoriaEncontrada?.tareas ?: mutableListOf()
     }
 
-
-    override fun updateNombreTarea(ca: Categoria, ta: Tarea, nomAnt: String, nomNue: String) {
-        TODO("Not yet implemented")
-
+    override fun updateNombreTarea(ca: Categoria, taAnt: Tarea, taNue: Tarea) {
+        val lista = conexion.leer()
+        val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
+        if (categoriaEncontrada != null) {
+            val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == taAnt.nombre }
+            if (tareaEncontrada != null) {
+                tareaEncontrada.nombre = taNue.nombre
+                conexion.escribir(lista)
+            } else {
+                Log.d("error", "La tarea ${taAnt.nombre} no existe en la categoría ${ca.nombre}")
+            }
+        } else {
+            Log.d("error", "La categoría ${ca.nombre} no existe")
+        }
     }
 
     override fun deleteTarea(ca: Categoria, ta: Tarea) {
@@ -49,58 +56,81 @@ class DaoTareasFichero: InterfaceDaoListas, InterfaceDao {
             conexion.escribir(lista)
         } else {
             Log.d("error", "La categoría ${ca.nombre} no existe")
-        }    }
+        }
+    }
 
-    override fun addItem(ta: Tarea, ite: Item) {
+
+
+    override fun addItem(ca: Categoria, ta: Tarea, ite: Item) {
         val lista = conexion.leer()
-        val categoriaEncontrada = lista.find { it.nombre == ta.nombre }
+        val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
         if (categoriaEncontrada != null) {
             val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
             if (tareaEncontrada != null) {
                 tareaEncontrada.items.add(ite)
                 conexion.escribir(lista)
+                ta.nTareas++ // Incrementar el contador de tareas
             } else {
-                Log.d("error", "La tarea ${ta.nombre} no existe")
+                Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
             }
+        } else {
+            Log.d("error", "La categoría ${ca.nombre} no existe")
         }
-        ta.nTareas++
     }
 
-    override fun getItems(ta: Tarea): MutableList<Item> {
+    override fun getItems(ca: Categoria, ta: Tarea): MutableList<Item> {
         val lista = conexion.leer()
-        val categoriaEncontrada = lista.find { it.nombre == ta.nombre }
+        val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
         if (categoriaEncontrada != null) {
             val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
             if (tareaEncontrada != null) {
                 return tareaEncontrada.items
             } else {
-                Log.d("error", "La tarea ${ta.nombre} no existe")
+                Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
             }
+        } else {
+            Log.d("error", "La categoría ${ca.nombre} no existe")
         }
-        return mutableListOf()    }
+        return mutableListOf()
+    }
 
-    override fun updateItem(ta: Tarea, ite: Item, ant: String, nue: String) {
+
+    override fun updateItem(ca: Categoria, ta: Tarea, iteAnt: Item, iteNue: Item) {
         val lista = conexion.leer()
-        val categoriaEncontrada = lista.find { it.nombre == ta.nombre }
+        val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
         if (categoriaEncontrada != null) {
             val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
             if (tareaEncontrada != null) {
-                val itemEncontrado = tareaEncontrada.items.find { it.accion == ant }
-                if (itemEncontrado != null) {
-                    itemEncontrado.accion = nue
+                val itemIndex = tareaEncontrada.items.indexOfFirst { it.accion == iteAnt.accion }
+                if (itemIndex != -1) {
+                    tareaEncontrada.items[itemIndex] = iteNue
                     conexion.escribir(lista)
                 } else {
-                    Log.d("error", "El ítem con acción $ant no existe en la tarea ${ta.nombre}")
+                    Log.d("error", "El ítem ${iteAnt.accion} no existe en la tarea ${ta.nombre}")
                 }
+            } else {
+                Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
             }
+        } else {
+            Log.d("error", "La categoría ${ca.nombre} no existe")
         }
     }
 
-    override fun deleteItem(ta: Tarea, ite: Item) {
-//        ta.items.remove(ite)
-//        ta.nTareas--
-        TODO("Not yet implemented")
-
+    override fun deleteItem(ca: Categoria, ta: Tarea, ite: Item) {
+        val lista = conexion.leer()
+        val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
+        if (categoriaEncontrada != null) {
+            val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
+            if (tareaEncontrada != null) {
+                tareaEncontrada.items.remove(ite)
+                ta.nTareas--
+                conexion.escribir(lista)
+            } else {
+                Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
+            }
+        } else {
+            Log.d("error", "La categoría ${ca.nombre} no existe")
+        }
     }
 
 }

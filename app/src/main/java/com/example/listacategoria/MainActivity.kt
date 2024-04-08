@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
 
         //añado items a cocina
         var coc1 = Item("Hacer canelones", false)
-        daoTarea.addItem(cocina, coc1)
+        daoTarea.addItem(hogar, cocina, coc1)
         //veo items cocina
-        val listCocina: List<Item> = daoTarea.getItems(cocina)
+        val listCocina: List<Item> = daoTarea.getItems(hogar, cocina)
         listCocina.forEach{
             Log.d("ListaCocina", it.accion)
         }
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         val listasHogar: List<Tarea> = daoTarea.getTareas(hogar)
         for (lista in listasHogar) {
             Log.d("Listas de Hogar", "Lista: ${lista.nombre}")
-            val items: List<Item> = daoTarea.getItems(lista)
+            val items: List<Item> = daoTarea.getItems(hogar,lista)
             for (item in items) {
                 Log.d("Listas de Hogar", "Item (${lista.nombre}): ${item.accion}")
             }
@@ -92,14 +92,37 @@ class MainActivity : AppCompatActivity() {
             for (lista in tareas) {
                 Log.d("muestraCategorias", "Lista: ${lista.nombre}")
 
-                val items: List<Item> = daoTarea.getItems(lista)
+                val items: List<Item> = daoTarea.getItems(categoria,lista)
                 for (item in items) {
                     Log.d("muestraCategorias", "*: ${item.accion}")
                 }
             }
         }
 
-        //modifico categorias
+        //actualizo item
+        var coc2 = Item("Poner lavavajillas", false)
+        daoTarea.updateItem(hogar,cocina,coc1,coc2)
+        val listasHogar3: List<Tarea> = daoTarea.getTareas(hogar)
+        for (lista3 in listasHogar3) {
+            Log.d("CocActualizado", "Lista: ${lista3.nombre}")
+            val items: List<Item> = daoTarea.getItems(hogar,lista3)
+            for (item in items) {
+                Log.d("CocActualizado", "Item (${lista3.nombre}): ${item.accion}")
+            }
+        }
+        //actualizo nombre tarea
+        var habitacion = Tarea("Habitacion")
+        daoTarea.updateNombreTarea(hogar,aseo,habitacion)
+        val listasHogar2: List<Tarea> = daoTarea.getTareas(hogar)
+        for (lista in listasHogar2) {
+            Log.d("HogarActualizado", "Lista: ${lista.nombre}")
+            val items: List<Item> = daoTarea.getItems(hogar,lista)
+            for (item in items) {
+                Log.d("HogarActualizado", "Item (${lista.nombre}): ${item.accion}")
+            }
+        }
+
+        //actualizo nombre categorias
         var casa= Categoria("Casa")
         daoCategoria.updateCategoria(hogar,casa)
         val listCat2: List<Categoria> = daoCategoria.getCategorias()
@@ -107,5 +130,8 @@ class MainActivity : AppCompatActivity() {
         listCat2.forEach {
             Log.d("CatActualizado", it.nombre)
         }
+
+
+
     }
 }

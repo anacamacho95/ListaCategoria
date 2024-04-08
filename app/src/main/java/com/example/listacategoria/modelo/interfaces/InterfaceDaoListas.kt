@@ -10,20 +10,18 @@ interface InterfaceDaoListas: InterfaceDao {
     fun addTarea (ca: Categoria, ta: Tarea)
     //leer Todas las listas
     fun getTareas(ca: Categoria): MutableList<Tarea>
-    //leer una lista en concreto
-    fun getTareas(ca: Categoria, ta: Tarea): MutableList<Tarea>
     //actualizar
-    fun updateNombreTarea(ca: Categoria, ta: Tarea, nomAnt: String, nomNue: String)
+    fun updateNombreTarea(ca: Categoria, taAnt: Tarea, taNue: Tarea)
     //borrar
     fun deleteTarea (ca: Categoria, ta: Tarea)
 
     //CRUD ITEMS
     //crear
-    fun addItem (ta: Tarea, ite: Item)
+    fun addItem (ca: Categoria, ta: Tarea, ite: Item)
     //leer Todos los items
-    fun getItems(ta: Tarea): MutableList<Item>
+    fun getItems(ca: Categoria, ta: Tarea): MutableList<Item>
     //actualizar item
-    fun updateItem(ta: Tarea, ite: Item, ant: String, nue: String)
+    fun updateItem(ca: Categoria, ta: Tarea,iteAnt: Item, iteNue: Item)
     //borrar
-    fun deleteItem (ta: Tarea, ite: Item)
+    fun deleteItem (ca: Categoria ,ta: Tarea, ite: Item)
 }

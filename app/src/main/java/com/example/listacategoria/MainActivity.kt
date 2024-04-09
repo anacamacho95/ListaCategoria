@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.listacategoria.modelo.conexiones.BDFichero
 import com.example.listacategoria.modelo.daos.categorias.DaoCategoriasFichero
-import com.example.listacategoria.modelo.daos.listas.DaoTareasFichero
+import com.example.listacategoria.modelo.daos.tareas.DaoTareasFichero
 import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.entidades.Item
 import com.example.listacategoria.modelo.entidades.Tarea
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         //muesta la lista de hogar
         val listasHogar: List<Tarea> = daoTarea.getTareas(hogar)
         for (lista in listasHogar) {
-            Log.d("Listas de Hogar", "Tarea: ${lista.nombre}")
+            Log.d("Listas de Hogar", "Lista: ${lista.nombre}")
             val items: List<Item> = daoTarea.getItems(hogar,lista)
             for (item in items) {
                 Log.d("Listas de Hogar", "* (${lista.nombre}): ${item.accion}")

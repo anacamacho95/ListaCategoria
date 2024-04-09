@@ -1,4 +1,4 @@
-package com.example.listacategoria.modelo.daos.listas
+package com.example.listacategoria.modelo.daos.tareas
 
 import android.util.Log
 import com.example.listacategoria.modelo.conexiones.BDFichero

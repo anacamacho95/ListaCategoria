@@ -5,10 +5,10 @@ import com.example.listacategoria.modelo.entidades.Item
 import com.example.listacategoria.modelo.entidades.Tarea
 
 interface InterfaceDaoListas: InterfaceDao {
-    //CRUD LISTAS
+    //CRUD TAREAS
     //crear
     fun addTarea (ca: Categoria, ta: Tarea)
-    //leer Todas las listas
+    //leer Todas las tareas
     fun getTareas(ca: Categoria): MutableList<Tarea>
     //actualizar
     fun updateNombreTarea(ca: Categoria, taAnt: Tarea, taNue: Tarea)

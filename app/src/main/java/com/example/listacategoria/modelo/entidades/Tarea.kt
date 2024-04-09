@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class Tarea (var nombre: String ): Serializable {
 
-    //una lista tiene un conjunto de items
+    //una tarea tiene un conjunto de items
     var items: MutableList<Item> = mutableListOf()
-    var nTareas: Int = items.size
+    var nItems: Int = items.size
 }

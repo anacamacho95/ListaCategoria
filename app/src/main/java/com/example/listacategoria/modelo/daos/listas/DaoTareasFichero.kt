@@ -69,7 +69,7 @@ class DaoTareasFichero: InterfaceDaoListas, InterfaceDao {
             if (tareaEncontrada != null) {
                 tareaEncontrada.items.add(ite)
                 conexion.escribir(lista)
-                ta.nTareas++ // Incrementar el contador de tareas
+                ta.nItems++ // Incrementar el contador de items
             } else {
                 Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
             }
@@ -123,7 +123,7 @@ class DaoTareasFichero: InterfaceDaoListas, InterfaceDao {
             val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
             if (tareaEncontrada != null) {
                 tareaEncontrada.items.remove(ite)
-                ta.nTareas--
+                ta.nItems--//decrementa el numero de items
                 conexion.escribir(lista)
             } else {
                 Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")

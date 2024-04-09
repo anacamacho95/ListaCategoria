@@ -4,7 +4,7 @@ import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.entidades.Item
 import com.example.listacategoria.modelo.entidades.Tarea
 
-interface InterfaceDaoListas: InterfaceDao {
+interface InterfaceDaoTareas: InterfaceDao {
     //CRUD TAREAS
     //crear
     fun addTarea (ca: Categoria, ta: Tarea)

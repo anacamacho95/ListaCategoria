@@ -10,12 +10,12 @@ import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.entidades.Item
 import com.example.listacategoria.modelo.entidades.Tarea
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoCategorias
-import com.example.listacategoria.modelo.interfaces.InterfaceDaoListas
+import com.example.listacategoria.modelo.interfaces.InterfaceDaoTareas
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var daoCategoria: InterfaceDaoCategorias
-    lateinit var daoTarea: InterfaceDaoListas
+    lateinit var daoTarea: InterfaceDaoTareas
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,9 +6,9 @@ import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.entidades.Item
 import com.example.listacategoria.modelo.entidades.Tarea
 import com.example.listacategoria.modelo.interfaces.InterfaceDao
-import com.example.listacategoria.modelo.interfaces.InterfaceDaoListas
+import com.example.listacategoria.modelo.interfaces.InterfaceDaoTareas
 
-class DaoTareasFichero: InterfaceDaoListas, InterfaceDao {
+class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
     lateinit var conexion: BDFichero
 
     override fun createConexion(con: BDFichero) {

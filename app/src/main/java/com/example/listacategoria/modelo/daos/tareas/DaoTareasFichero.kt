@@ -122,9 +122,14 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
         if (categoriaEncontrada != null) {
             val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
             if (tareaEncontrada != null) {
-                tareaEncontrada.items.remove(ite)
-                ta.nItems--//decrementa el numero de items
-                conexion.escribir(lista)
+                var daoTarea=DaoTareasFichero()
+                for (it in tareaEncontrada.items){
+                    Log.d ("tareas", it.accion)
+                }
+                //tareaEncontrada.items.remove(ite)
+                //ta.nItems--//decrementa el numero de items
+
+                //conexion.escribir(lista)
             } else {
                 Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
             }

@@ -52,12 +52,19 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
         val lista = conexion.leer()
         val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
         if (categoriaEncontrada != null) {
-            categoriaEncontrada.tareas.remove(ta)
-            conexion.escribir(lista)
+            val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
+            if (tareaEncontrada != null) {
+                categoriaEncontrada.tareas.remove(tareaEncontrada)
+
+                conexion.escribir(lista)
+            } else {
+                Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
+            }
         } else {
             Log.d("error", "La categoría ${ca.nombre} no existe")
         }
     }
+
 
 
 
@@ -122,14 +129,23 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
         if (categoriaEncontrada != null) {
             val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
             if (tareaEncontrada != null) {
-                var daoTarea=DaoTareasFichero()
-                for (it in tareaEncontrada.items){
-                    Log.d ("tareas", it.accion)
-                }
-                //tareaEncontrada.items.remove(ite)
-                //ta.nItems--//decrementa el numero de items
+                val itemEncontrado = tareaEncontrada.items.find { it.accion == ite.accion }
+                if (itemEncontrado != null) {
+                    tareaEncontrada.items.remove(itemEncontrado)
+                    ta.nItems-- // decrementa el número de items
 
-                //conexion.escribir(lista)
+                    conexion.escribir(lista)
+
+
+//                for (it in tareaEncontrada.items){
+//                    if(it.accion==ite.accion)
+//                        Log.d ("tareas", it.accion)
+//
+//                }
+
+//                conexion.escribir(lista)
+                } else
+                    Log.d("error", "El Item con accion ${ite.accion} no existe en la tarea ${ta.nombre}")
             } else {
                 Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
             }

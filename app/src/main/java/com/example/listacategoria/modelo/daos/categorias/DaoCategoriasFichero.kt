@@ -25,30 +25,27 @@ class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
 
     override fun updateCategoria(caAnt: Categoria, caNue: Categoria) {
         val lista = conexion.leer()
-        var categoriaEncontrada = false
-        for (i in lista.indices) {
-            val categoria = lista[i]
-            if (categoria.nombre == caAnt.nombre) {
-                lista[i] = caNue // Actualiza la categoría en la lista
-                categoriaEncontrada = true
-                break // Sale del bucle una vez que se actualiza la categoría
-            }
-        }
-        if (categoriaEncontrada) {
-            conexion.escribir(lista) // Escribe la lista actualizada en el archivo
+        var categoriaEncontrada = lista.find { it.nombre == caAnt.nombre }
+        if (categoriaEncontrada != null) {
+            categoriaEncontrada.nombre = caNue.nombre// Actualizar el nombre de la categoría encontrada
+
+            conexion.escribir(lista)
         } else {
             Log.d("error", "La categoría ${caAnt.nombre} no existe")
         }
+
+
     }
 
     override fun deleteCategoria(ca: Categoria) {
         val lista = conexion.leer()
-        val indice = lista.indexOf(ca)
-        if (indice != -1) {
-            lista.removeAt(indice)
+        val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
+        if (categoriaEncontrada != null) {
+            lista.remove(categoriaEncontrada)
             conexion.escribir(lista)
+
         } else {
-            Log.d("error","La categoría ${ca.nombre} no existe")
+            Log.d("error", "La categoría ${ca.nombre} no existe")
         }
     }
 

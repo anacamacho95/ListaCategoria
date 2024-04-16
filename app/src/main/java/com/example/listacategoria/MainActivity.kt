@@ -125,17 +125,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*
-        Log.d("pruebas", " *** Actualizo nombre de categoria Hogar *** ")
+        Log.d("pruebas", " *** Actualizo nombre de categoria Hogar por Casa *** ")
         var casa= Categoria("Casa")
         daoCategoria.updateCategoria(hogar,casa)
         val listCat3: List<Categoria> = daoCategoria.getCategorias()
-        listCat3.forEach {
-            Log.d("pruebas", it.nombre)
+        for (categoria in listCat3) {
+            Log.d("pruebas", "Categoría --> ${categoria.nombre}")
+
+            val tareas1: List<Tarea> = daoTarea.getTareas(categoria)
+            for (lista in tareas1) {
+                Log.d("pruebas", "Tarea: ${lista.nombre}")
+
+                val items1: List<Item> = daoTarea.getItems(categoria,lista)
+                for (item in items1) {
+                    Log.d("pruebas", "- ${item.accion}")
+                }
+            }
         }
-        */
-        Log.d("pruebas", " *** Elimino item (lavavajillas) de la tarea Hogar *** ")
-        daoTarea.deleteItem(hogar,cocina,coc2)
+
+
+        Log.d("pruebas", " *** Elimino item (lavavajillas) de la tarea Casa *** ")
+        daoTarea.deleteItem(casa,cocina,coc2)
         val muestraCategorias2: List<Categoria> = daoCategoria.getCategorias()
         for (categoria in muestraCategorias2) {
             Log.d("pruebas", "Categoría --> ${categoria.nombre}")
@@ -147,14 +157,12 @@ class MainActivity : AppCompatActivity() {
                 val items2: List<Item> = daoTarea.getItems(categoria,lista)
                 for (item in items2) {
                     Log.d("pruebas", "- ${item.accion}")
-                    if(item.accion==coc2.accion)
-                        Log.d("pruebas", "es el mismo")
                 }
             }
         }
 
-        Log.d("pruebas", " *** Elimino tarea (Cocina) de la Categoria Hogar *** ")
-        daoTarea.deleteTarea(hogar,cocina)
+        Log.d("pruebas", " *** Elimino tarea (Cocina) de la Categoria Casa *** ")
+        daoTarea.deleteTarea(casa,cocina)
         val muestraCategorias3: List<Categoria> = daoCategoria.getCategorias()
         for (categoria in muestraCategorias3) {
             Log.d("pruebas", "Categoría --> ${categoria.nombre}")
@@ -170,8 +178,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        Log.d("pruebas", " *** Elimino categoria Hogar *** ")
-        daoTarea.deleteItem(hogar,cocina,coc2)
+        Log.d("pruebas", " *** Elimino categoria Casa *** ")
+        daoCategoria.deleteCategoria(casa)
         val muestraCategorias4: List<Categoria> = daoCategoria.getCategorias()
         for (categoria in muestraCategorias4) {
             Log.d("pruebas", "Categoría --> ${categoria.nombre}")
@@ -186,6 +194,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
 
     }
 }

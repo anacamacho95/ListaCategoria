@@ -33,8 +33,6 @@ class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
         } else {
             Log.d("error", "La categoría ${caAnt.nombre} no existe")
         }
-
-
     }
 
     override fun deleteCategoria(ca: Categoria) {
@@ -48,6 +46,4 @@ class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
             Log.d("error", "La categoría ${ca.nombre} no existe")
         }
     }
-
-
 }

@@ -55,7 +55,6 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
             val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
             if (tareaEncontrada != null) {
                 categoriaEncontrada.tareas.remove(tareaEncontrada)
-
                 conexion.escribir(lista)
             } else {
                 Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
@@ -66,8 +65,6 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
     }
 
 
-
-
     override fun addItem(ca: Categoria, ta: Tarea, ite: Item) {
         val lista = conexion.leer()
         val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
@@ -76,7 +73,6 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
             if (tareaEncontrada != null) {
                 tareaEncontrada.items.add(ite)
                 conexion.escribir(lista)
-                ta.nItems++ // Incrementar el contador de items
             } else {
                 Log.d("error", "La tarea ${ta.nombre} no existe en la categoría ${ca.nombre}")
             }
@@ -100,7 +96,6 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
         }
         return mutableListOf()
     }
-
 
     override fun updateItem(ca: Categoria, ta: Tarea, iteAnt: Item, iteNue: Item) {
         val lista = conexion.leer()
@@ -132,18 +127,7 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
                 val itemEncontrado = tareaEncontrada.items.find { it.accion == ite.accion }
                 if (itemEncontrado != null) {
                     tareaEncontrada.items.remove(itemEncontrado)
-                    ta.nItems-- // decrementa el número de items
-
                     conexion.escribir(lista)
-
-
-//                for (it in tareaEncontrada.items){
-//                    if(it.accion==ite.accion)
-//                        Log.d ("tareas", it.accion)
-//
-//                }
-
-//                conexion.escribir(lista)
                 } else
                     Log.d("error", "El Item con accion ${ite.accion} no existe en la tarea ${ta.nombre}")
             } else {
@@ -166,6 +150,5 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
             return 0
         }
     }
-
 
 }

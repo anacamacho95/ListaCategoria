@@ -147,7 +147,6 @@ class MainActivity : AppCompatActivity() {
                     Log.d("pruebas", "- ${item.accion}")
                 }
                 Log.d("pruebas", "NºTareas: "+ daoTarea.getNItems(categoria,tarea))
-
             }
         }
 
@@ -166,7 +165,6 @@ class MainActivity : AppCompatActivity() {
                     Log.d("pruebas", "- ${item.accion}")
                 }
                 Log.d("pruebas", "NºTareas: "+ daoTarea.getNItems(categoria,tarea))
-
             }
         }
 
@@ -185,9 +183,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("pruebas", "- ${item.accion}")
                 }
                 Log.d("pruebas", "NºTareas: "+ daoTarea.getNItems(categoria,tarea))
-
             }
         }
-
     }
 }

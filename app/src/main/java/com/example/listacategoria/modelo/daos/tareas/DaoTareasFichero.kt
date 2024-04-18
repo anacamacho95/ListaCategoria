@@ -154,4 +154,18 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
         }
     }
 
+    override fun getNItems(ca: Categoria, ta: Tarea): Int {
+        val lista = conexion.leer()
+        val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
+
+        if (categoriaEncontrada != null) {
+            val tareaEncontrada = categoriaEncontrada.tareas.find { it.nombre == ta.nombre }
+            return tareaEncontrada?.items?.size ?: 0 //si tareaEncontrada o items es null devuelve 0
+        } else {
+            Log.d("error", "La categoría ${ca.nombre} no existe")
+            return 0
+        }
+    }
+
+
 }

@@ -5,10 +5,10 @@ import com.example.listacategoria.modelo.conexiones.BDFichero
 import com.example.listacategoria.modelo.entidades.Categoria
 import com.example.listacategoria.modelo.entidades.Item
 import com.example.listacategoria.modelo.entidades.Tarea
-import com.example.listacategoria.modelo.interfaces.InterfaceDao
+import com.example.listacategoria.modelo.interfaces.InterfaceDaoConexion
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoTareas
 
-class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
+class DaoTareasFichero: InterfaceDaoTareas, InterfaceDaoConexion {
     lateinit var conexion: BDFichero
 
     override fun createConexion(con: BDFichero) {
@@ -30,6 +30,17 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
         val lista = conexion.leer()
         val categoriaEncontrada = lista.find { it.nombre == ca.nombre }
         return categoriaEncontrada?.tareas ?: mutableListOf()
+    }
+
+    override fun getTarea(ta: Tarea): Tarea? {
+        val lista = conexion.leer()
+        for (categoria in lista) {
+            val tareaEncontrada = categoria.tareas.find { it.nombre == ta.nombre }
+            if (tareaEncontrada != null) {
+                return tareaEncontrada
+            }
+        }
+        return Tarea("Tarea no encontrada")
     }
 
     override fun updateNombreTarea(ca: Categoria, taAnt: Tarea, taNue: Tarea) {
@@ -95,6 +106,19 @@ class DaoTareasFichero: InterfaceDaoTareas, InterfaceDao {
             Log.d("error", "La categoría ${ca.nombre} no existe")
         }
         return mutableListOf()
+    }
+
+    override fun getItem(it: Item): Item? {
+        val lista = conexion.leer()
+        for (categoria in lista) {
+            for (tarea in categoria.tareas) {
+                val itemEncontrado = tarea.items.find { it.accion == it.accion }
+                if (itemEncontrado != null) {
+                    return itemEncontrado
+                }
+            }
+        }
+        return Item("Item no encontrado",false)
     }
 
     override fun updateItem(ca: Categoria, ta: Tarea, iteAnt: Item, iteNue: Item) {

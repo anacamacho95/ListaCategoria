@@ -3,10 +3,10 @@ package com.example.listacategoria.modelo.daos.categorias
 import android.util.Log
 import com.example.listacategoria.modelo.conexiones.BDFichero
 import com.example.listacategoria.modelo.entidades.Categoria
-import com.example.listacategoria.modelo.interfaces.InterfaceDao
+import com.example.listacategoria.modelo.interfaces.InterfaceDaoConexion
 import com.example.listacategoria.modelo.interfaces.InterfaceDaoCategorias
 
-class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
+class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDaoConexion {
     lateinit var conexion: BDFichero
 
     override fun createConexion(con: BDFichero) {
@@ -21,6 +21,12 @@ class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDao {
 
     override fun getCategorias(): MutableList<Categoria> {
         return conexion.leer()
+    }
+
+
+    override fun getCategoria(ca: Categoria): Categoria? {
+        val lista=conexion.leer()
+        return lista.find { it.nombre == ca.nombre }
     }
 
     override fun updateCategoria(caAnt: Categoria, caNue: Categoria) {

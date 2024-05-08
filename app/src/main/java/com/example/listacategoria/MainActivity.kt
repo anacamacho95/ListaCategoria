@@ -47,6 +47,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("pruebas", it.nombre)
         }
 
+        Log.d("pruebas", " *** Obtengo Categoria Hogar *** ")
+        val obtHogar: Categoria? = daoCategoria.getCategoria(hogar)
+        Log.d("pruebas", obtHogar?.nombre ?: "no encontrada")
+
         Log.d("pruebas", " *** Añado tareas a la categoria Hogar *** ")
         var cocina = Tarea( "Cocina")
         daoTarea.addTarea( hogar, cocina)
@@ -57,6 +61,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("pruebas", it.nombre)
         }
 
+        Log.d("pruebas", " *** Obtengo Tarea Cocina *** ")
+        val obtCocina: Tarea? = daoTarea.getTarea(cocina)
+        Log.d("pruebas", obtCocina?.nombre ?: "no encontrada")
+
         Log.d("pruebas", " *** Añado items a la tarea Cocina *** ")
         var coc1 = Item("Hacer canelones", false)
         daoTarea.addItem(hogar, cocina, coc1)
@@ -66,6 +74,9 @@ class MainActivity : AppCompatActivity() {
         }
         Log.d("pruebas", "NºTareas: "+ daoTarea.getNItems(hogar,cocina))
 
+        Log.d("pruebas", " *** Obtengo Item Hacer Canelones *** ")
+        val obtCanelones: Item? = daoTarea.getItem(coc1)
+        Log.d("pruebas", obtCanelones?.accion + " - "+  obtCanelones?.activo ?: "no encontrada")
 
         Log.d("pruebas", " *** Añado tareas a la categoria Viajes *** ")
         var playa = Tarea( "Playas")
@@ -76,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         tareasViaje.forEach {
             Log.d("pruebas", it.nombre)
         }
-
 
         Log.d("pruebas", " *** Muestro todas las categorias con sus tareas e items *** ")
         val muestraCategorias2: List<Categoria> = daoCategoria.getCategorias()

@@ -24,20 +24,20 @@ class DaoCategoriasFichero: InterfaceDaoCategorias, InterfaceDaoConexion {
     }
 
 
-    override fun getCategoria(ca: Categoria): Categoria? {
+    override fun getCategoria(nombre: String): Categoria {
         val lista=conexion.leer()
-        return lista.find { it.nombre == ca.nombre }
+        return lista.find { it.nombre == nombre }?: Categoria("Categoría no encontrada")
     }
 
-    override fun updateCategoria(caAnt: Categoria, caNue: Categoria) {
+    override fun updateCategoria(ca: Categoria) {
         val lista = conexion.leer()
-        var categoriaEncontrada = lista.find { it.nombre == caAnt.nombre }
+        var categoriaEncontrada = lista.find { it.nombre == ca.nombre }
         if (categoriaEncontrada != null) {
-            categoriaEncontrada.nombre = caNue.nombre// Actualizar el nombre de la categoría encontrada
+            categoriaEncontrada.nombre = ca.nombre// Actualizar el nombre de la categoría encontrada
 
             conexion.escribir(lista)
         } else {
-            Log.d("error", "La categoría ${caAnt.nombre} no existe")
+            Log.d("error", "La categoría ${ca.nombre} no existe")
         }
     }
 
